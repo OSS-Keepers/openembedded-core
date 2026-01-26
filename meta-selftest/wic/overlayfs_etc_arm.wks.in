@@ -1,0 +1,5 @@
+#part /boot --source bootimg-partition --ondisk mmcblk0 --fstype=ext4 --label boot --active --align 4 --size 16 --sourceparams="loader=u-boot"
+part /boot --source bootimg-partition --ondisk vda --fstype=ext4 --label boot --active --align 4 --size 16 --sourceparams="loader=u-boot"
+part / --source rootfs --ondisk vda --fstype=${OVERLAYFS_ROOTFS_TYPE} --use-uuid --label root --align 4
+part --ondisk vda --fstype=ext4 --size=5 --align 4
+bootloader --ptable gpt --timeout=1 --append="rootfstype=${OVERLAYFS_ROOTFS_TYPE} console=ttyS0,115200 console=tty0 ${OVERLAYFS_INIT_OPTION} net.ifnames=0"
